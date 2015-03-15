@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <h:head>
+            <title>MANAGER</title>
+        </h:head>
+        <h:body >
+            <h:outputStylesheet library="css" name="style.css" />
+            <p:tabView dynamic="true">
+                <p:ajax event="tabChange" listener="#{managerBean.onTabChange}" update="@all"/>  
+                <p:tab title="Add Book">
+                    <h:form>
+                        <p:fileUpload fileUploadListener="#{managerBean.handleFileUpload}" mode="advanced" dragDropSupport="false"  
+                                          sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />  
+                    </h:form>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Book name "/>
+                            <h:inputText autocomplete="off" value="#{managerBean.bookName}"/>
+                            <h:outputText value="BookStore ID "/>
+                            <h:inputText autocomplete="off" value="#{managerBean.bookStoreID}"/>
+                            <h:outputText value="Author "/>
+                            <h:panelGroup>
+                                <h:selectOneMenu  value="#{managerBean.authorID}">
+                                    <f:selectItems  value="#{managerBean.authorMap}" />
+                                    <f:ajax event="change" render="au" />
+                                </h:selectOneMenu>
+
+                                <h:inputText id="au" value="#{managerBean.author}" rendered="#{managerBean.authorID eq 0}"/>
+                                <p:watermark for="au" value="Enter Author Name" />
+                            </h:panelGroup>
+                            
+                            <h:outputText value="Publisher "/>
+                            <h:panelGroup>
+                                <h:selectOneMenu value="#{managerBean.publisherID}">
+                                    <f:selectItems value="#{managerBean.publisherMap}" />
+                                    <f:ajax event="change" render="pu" />
+                                </h:selectOneMenu>
+
+                                <h:inputText id="pu" value="#{managerBean.publisher}" rendered="#{managerBean.publisherID eq 0}"/>
+                                <p:watermark for="pu" value="Enter Publisher Name" />
+                            </h:panelGroup>
+                            <h:outputText value="Price "/>
+                            <h:inputText autocomplete="off" value="#{managerBean.price}"/>
+                            <h:outputText value="Quantity "/>
+                            <h:inputText autocomplete="off" value="#{managerBean.quantity}"/>
+                            
+                            <h:outputText value="Category "/>
+                            <h:selectOneMenu value="#{managerBean.category}" valueChangeListener="#{managerBean.valueChange}">
+                                <f:selectItems value="#{managerBean.categoryMap}" />
+                                <f:ajax event="change" render="sub" />
+                            </h:selectOneMenu>
+                            <h:outputText value="Sub category "/>
+                            <h:selectOneMenu id="sub" value="#{managerBean.subcategory}">
+                                <f:selectItems value="#{managerBean.subcategoryMap}" />
+                            </h:selectOneMenu>
+                            <h:outputText value="Edition"/>
+                            <h:inputText autocomplete="off" value="#{managerBean.edition}"/>
+                            <h:outputText value="ISBN"/>
+                            <h:inputText autocomplete="off" value="#{managerBean.ISBN}"/>
+                            <p:commandButton value="ADD BOOK" action="#{managerBean.addBook()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+
+                <p:tab title="Delete Book">
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Book ID "/>
+                            <h:inputText autocomplete="off" value="#{managerBean.bookID}"/>
+                            <p:commandButton value="DELETE BOOK" action="#{managerBean.deleteBook()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+
+                <!--p:tab title="View Managers" onclick="{managerBean.viewManagers()}"-->
+                <p:tab title="View Managers">
+                    <h:form>
+                        <p:dataTable var="userDto" value="#{managerBean.managerDtoList}" rendered="#{managerBean.managerDtoList.size() gt 0}">
+                            <p:column headerText="User ID">
+                                <h:outputText value="#{userDto.userID}" />
+                            </p:column>
+                            <p:column headerText="UserName">
+                                <h:outputText value="#{userDto.userName}" />
+                            </p:column>
+                            <p:column headerText="Address">
+                                <h:outputText value="#{userDto.address}" />
+                            </p:column>
+                            <p:column headerText="Role">
+                                <h:outputText value="#{userDto.role}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+
+                <!--p:tab title="View Customers" onclick="{managerBean.viewCustomers()}" -->
+                <p:tab title="View Customers" >
+                    <h:form>
+                        <p:dataTable var="userDto" value="#{managerBean.customerDtoList}" rendered="#{managerBean.customerDtoList.size() gt 0}">
+                            <p:column headerText="User ID">
+                                <h:outputText value="#{userDto.userID}" />
+                            </p:column>
+                            <p:column headerText="UserName">
+                                <h:outputText value="#{userDto.userName}" />
+                            </p:column>
+                            <p:column headerText="Address">
+                                <h:outputText value="#{userDto.address}" />
+                            </p:column>
+                            <p:column headerText="Role">
+                                <h:outputText value="#{userDto.role}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+
+        </h:body>
+
+    </ui:define>
+</ui:composition>

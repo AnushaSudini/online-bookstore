@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <h:head>
+            <title>SEARCH BOOK NAME</title>
+        </h:head>
+        <h:body >
+            <h:outputStylesheet library="css" name="style.css" />
+            <h:form>
+                Book Name:<h:inputText autocomplete="off" value="#{businessLogicBean.bookName}" />
+                <p:commandButton value="Search" action="#{businessLogicBean.doSearchBookName()}"/>
+                
+                <p:dataTable var="bookDto" value="#{businessLogicBean.bookDtoList}">
+                    <p:column headerText="Book ID">
+                        <h:outputText value="#{bookDto.bookID}" />
+                    </p:column>
+                    <p:column headerText="Book Name">
+                        <h:outputText value="#{bookDto.bookName}" />
+                    </p:column>
+                    <p:column headerText="Author Name">
+                        <h:outputText value="#{bookDto.authorName}" />
+                    </p:column>
+                    <p:column headerText="Publisher Name">
+                        <h:outputText value="#{bookDto.publisherName}" />
+                    </p:column>
+                    <p:column headerText="Edition">
+                        <h:outputText value="#{bookDto.edition}" />
+                    </p:column>
+                    <p:column headerText="ISBN">
+                        <h:outputText value="#{bookDto.ISBN}" />
+                    </p:column>
+                    
+                    <p:column headerText="Price">
+                        <h:outputText value="$ #{bookDto.price}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

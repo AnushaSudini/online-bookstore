@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:head>
+            <title>CHECKOUT</title>
+        </h:head>
+        <h:body >
+            <h:form>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputText value="Total Amount:"/>                        
+                    <h:outputText value="#{businessLogicBean.totalAmount}"/>
+                    <h:outputText value="Credit Card Type"/>
+                    <h:selectOneMenu value="#{checkoutBean.ccType}">
+                        <f:selectItem itemValue="American Express" itemLabel="American Express" />
+                        <f:selectItem itemValue="Mastercard" itemLabel="Mastercard" />
+                        <f:selectItem itemValue="Visa" itemLabel="Visa" />
+                        <f:selectItem itemValue="Discover" itemLabel="Discover" />
+                    </h:selectOneMenu>
+                    <h:outputText value="Credit card Number"/>
+                    <h:inputText value="#{checkoutBean.ccNum}" autocomplete="off"/>
+                    <h:outputText value="Name on Card"/>
+                    <h:inputText value="#{checkoutBean.ccName}" autocomplete="off"/>
+                    <h:outputText value="Expiration Date"/>
+                    <h:panelGroup>
+                        <h:selectOneMenu value="#{checkoutBean.month}">
+                            <f:selectItem itemValue="1" itemLabel="January" />
+                            <f:selectItem itemValue="2" itemLabel="February" />
+                            <f:selectItem itemValue="3" itemLabel="March" />
+                            <f:selectItem itemValue="4" itemLabel="April" />
+                            <f:selectItem itemValue="5" itemLabel="May" />
+                            <f:selectItem itemValue="6" itemLabel="June" />
+                            <f:selectItem itemValue="7" itemLabel="July" />
+                            <f:selectItem itemValue="8" itemLabel="August" />
+                            <f:selectItem itemValue="9" itemLabel="September" />
+                            <f:selectItem itemValue="10" itemLabel="October" />
+                            <f:selectItem itemValue="11" itemLabel="November" />
+                            <f:selectItem itemValue="12" itemLabel="December" />
+                            
+                        </h:selectOneMenu>
+                        <h:selectOneMenu value="#{checkoutBean.year}">
+                            <f:selectItem itemValue="2014" itemLabel="14" />
+                            <f:selectItem itemValue="2015" itemLabel="15" />
+                            <f:selectItem itemValue="2016" itemLabel="16" />
+                            <f:selectItem itemValue="2017" itemLabel="17" />
+                            <f:selectItem itemValue="2018" itemLabel="18" />
+                            <f:selectItem itemValue="2019" itemLabel="19" />
+                            <f:selectItem itemValue="2020" itemLabel="20" />
+                            <f:selectItem itemValue="2021" itemLabel="21" />
+                            <f:selectItem itemValue="2022" itemLabel="22" />
+                            <f:selectItem itemValue="2023" itemLabel="23" />
+                            <f:selectItem itemValue="2024" itemLabel="24" />
+                            <f:selectItem itemValue="2025" itemLabel="25" />
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                    <h:outputText value="CVV"/>
+                    <h:inputText autocomplete="off" value="#{checkoutBean.cvv}"></h:inputText>
+                    <p:commandButton value="Submit" action="#{checkoutBean.checkout}"></p:commandButton>
+                </h:panelGrid>
+
+
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

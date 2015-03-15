@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:head>
+            <title>BOOK STORE</title>
+        </h:head>
+        <h:body>
+            <h:form style="height: 200px; padding: 20px; margin: auto; display: block; text-align: center; margin-top: 200px;">
+                <h:panelGrid columns="4">
+                    <h:outputText value="Enter Username you want to use: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userName}" />
+                        <h:outputText value="Enter First Name: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.firstName}" />
+                        <h:outputText value="Enter Last Name: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.lastName}" />
+                        <h:outputText value="Enter Gender: " />
+                        <h:outputText value="Enter Address: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.address}" />
+                        <h:outputText value="Enter City: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.city}" />
+                        <h:outputText value="Enter State ID: " />
+                        <h:outputText value="Enter Phone Number: " />
+                        <p:inputMask value="#{registerBean.phoneNumber}" mask="(999) 999-9999"/>
+                        <h:outputText value="Enter Email ID: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.emailID}" />
+
+                        <h:outputText value="Enter password: " />
+                        <h:inputSecret value="#{registerBean.password}" />
+
+                        <h:outputText value="Confirm password: " />
+                        <h:inputSecret value="#{registerBean.confirmPassword}" />
+
+                        <h:outputText value="Role: " />
+                    <p:commandButton value="Submit" action="#{registerBean.newUser()}" />
+                </h:panelGrid>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

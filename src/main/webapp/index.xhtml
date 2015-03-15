@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:head>
+            <title>BOOK STORE</title>
+        </h:head>
+        <h:body>
+            <h:form style="height: 200px; padding: 20px; margin: auto; display: block; text-align: center; margin-top: 200px;">
+                <h:panelGrid columns="4">
+                    <h:outputText value="Enter Username:"/>
+                    <h:inputText id="userID" autocomplete="off" value="#{loginBean.userName}"
+                                 required="true" requiredMessage="Username is required" >
+                        <f:ajax event="blur" render="userIDMsg" />
+                    </h:inputText>
+                    <p:watermark for="userID" value="User ID" />
+                    <p:message id="userIDMsg" for="userID" />
+                    <h:outputText value="Enter Password:" />
+                    <h:inputSecret id="pass" value="#{loginBean.password}"
+                                   required="true" requiredMessage="Password is required">
+                        <f:ajax event="blur" render="passMsg" />
+                    </h:inputSecret>
+                    <p:watermark for="pass" value="Password" />
+                    <p:message id="passMsg" for="pass" />
+                    <p:commandButton value="Login" action="#{loginBean.doSubmit()}"></p:commandButton>
+
+                    <br/>
+                    <h:link value="New User Registration" outcome="newUser.xhtml" />
+                </h:panelGrid>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

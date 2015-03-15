@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:head>
+            <title>BIOGRAPHY BOOKS</title>
+        </h:head>
+        <h:body styleClass="middle">
+            <h:outputStylesheet library="css" name="style.css" />
+            <h:form>
+                <p:button value="PROCEED TO CHECKOUT" outcome="checkout.xhtml" />
+                <p:dataGrid  id="table" var="bookdto" value="#{businessLogicBean.ls}" styleClass="middle"
+                             style="width: 100%;"
+                             paginator="true" rows="10"
+                             rowIndexVar="rowI"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    
+                        <p:panel style="text-align: center;">
+                            <h:panelGrid columns="1">
+                                <p:graphicImage value="#{imagesBean.image}"  >
+                                    <f:param name="imageID" value="#{rowI}" />
+                                </p:graphicImage>
+                                <h:outputText value="Book Name: #{bookdto.bookName}" />
+                                <h:outputText value="Author: #{bookdto.authorName}" />
+                                <h:outputText value="Price: $ #{bookdto.price}" />
+                                <h:outputText value="Quantity: #{bookdto.quantity}" />
+                                <h:outputText value="Edition: #{bookdto.edition}" />
+                                <h:outputText value="ISBN: #{bookdto.ISBN}" />
+                                <p:commandButton value="Add to Cart" action="#{businessLogicBean.addToCart(bookdto)}" />
+                            </h:panelGrid>
+                        </p:panel>
+                </p:dataGrid >
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

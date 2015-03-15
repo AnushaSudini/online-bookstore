@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:head>
+            <title>Search User</title>
+        </h:head>
+        <h:body >
+            <h:outputStylesheet library="css" name="style.css" />
+            <h:form>
+                Enter User ID  <h:inputText autocomplete="off" value="#{businessLogicBean.userDto.userID}">  </h:inputText>
+                <p:commandButton value="Search" type="submit" action="#{businessLogicBean.doSearchUser()}" />
+                <p:dataTable var="userDto" value="#{businessLogicBean.userList}">
+                    <p:column headerText="User ID">
+                        <h:outputText value="#{userDto.userID}" />
+                    </p:column>
+                    <p:column headerText="UserName">
+                        <h:outputText value="#{userDto.userName}" />
+                    </p:column>
+                    <p:column headerText="Address">
+                        <h:outputText value="#{userDto.address}" />
+                    </p:column>
+                    <p:column headerText="Role">
+                        <h:outputText value="#{userDto.role}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

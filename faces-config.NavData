@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="manager.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="contactUs.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="template.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="searchUser.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="aboutUs.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="searchStore.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="customer.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="admin.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="book.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="resources/images/used books/literature/The book of Literary Terms_files/frame.htm" x="900" y="300" zoom="true"/>
+        <Node id="resources/images/used books/literature/The book of Literary Terms.htm" x="400" y="300" zoom="true"/>
+        <Node id="resources/images/used books/literature/The book of Literary Terms_files/fastbutton.htm" x="150" y="300" zoom="true"/>
+        <Node id="biography.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="newUser.xhtml" x="900" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

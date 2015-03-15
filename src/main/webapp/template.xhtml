@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Online Book Store</title>
+    </h:head>
+
+    <h:body>
+        <h:outputStylesheet library="css" name="style.css" />
+
+        <div id="top">
+            <center>  <h2>ONLINE BOOK STORE</h2></center>
+        </div>
+
+        <div id="content" class="center_content">
+            <h:form style="text-align: left;">
+                <p:growl id="growl" showDetail="true" sticky="false" />
+                <p:menubar>
+                    <p:submenu label="BOOKS">
+                        <p:menuitem value="BIOGRAPHY" action="#{businessLogicBean.doBooksBiography}" />
+                         <p:menuitem value="COOK BOOKS" action="#{businessLogicBean.doBooksCookBooks}" />
+                        <p:menuitem value="GRAPHIC BOOKS" action="#{businessLogicBean.doBooksGraphicBooks}" />
+                        <p:menuitem value="HISTORY" action="#{businessLogicBean.doBooksHistory}" />
+                        <p:menuitem value="MYSTERY" action="#{businessLogicBean.doBooksMystery}" />
+                        <p:menuitem value="RELIGION AND INSPIRATION" action="#{businessLogicBean.doBooksReligion}" />
+                        <p:menuitem value="ROMANCE" action="#{businessLogicBean.doBooksRomance}" />
+                        <p:menuitem value="SCIENCE AND FICTION" action="#{businessLogicBean.doBooksScience}" />
+                    </p:submenu>
+
+                    <p:submenu label="USED BOOKS">
+                        <p:menuitem value="BIOGRAPHY" action="#{businessLogicBean.doUsedBooksBiography}" />
+                        <p:menuitem value="CHILDREN" action="#{businessLogicBean.doUsedBooksChildren}" />
+                        <p:menuitem value="COOKING" action="#{businessLogicBean.doUsedBooksCooking}" />
+                        <p:menuitem value="EDUCATION AND TEACHING" action="#{businessLogicBean.doUsedBooksEducation}" />
+                        <p:menuitem value="FICTION" action="#{businessLogicBean.doUsedBooksFiction}" />
+                        <p:menuitem value="LITERATURE" action="#{businessLogicBean.doUsedBooksLiterature}" />
+                        <p:menuitem value="MYSTERY" action="#{businessLogicBean.doUsedBooksMystery}" />
+                        <p:menuitem value="POETRY" action="#{businessLogicBean.doUsedBooksPoetry}" />
+                    </p:submenu>
+
+                    <p:submenu label="NEWS STAND" >
+                        <p:menuitem value="BUSINESS AND FINANCE MANAGEMENT" action="#{businessLogicBean.doNewstandBusiness}" />
+                        <p:menuitem value="FASHION" action="#{businessLogicBean.doNewstandFashion}" />
+                        <p:menuitem value="FITNESS" action="#{businessLogicBean.doNewstandFitness}" />
+                        <p:menuitem value="INTERNATIONAL NEWSPAPER" action="#{businessLogicBean.doNewstandInternationalNp}" />
+                        <p:menuitem value="NATIONAL NEWSPAPER" action="#{businessLogicBean.doNewstandNationalNp}" />
+                        <p:menuitem value="REGIONAL NEWSPAPER" action="#{businessLogicBean.doNewstandRegionalNp}" />
+                        <p:menuitem value="SPORTS" action="#{businessLogicBean.doNewstandSports}" />
+                        <p:menuitem value="TRAVEL AND TOURISM" action="#{businessLogicBean.doNewstandTravel}" />
+                    </p:submenu>
+                    <p:submenu label="BEST SELLERS" >
+                        <p:menuitem value="CHILDREN" action="#{businessLogicBean.doBestSellerChildren}" />
+                        <p:menuitem value="COOK BOOKS" action="#{businessLogicBean.doBestSellerCookBook}" />
+                        <p:menuitem value="FICTION" action="#{businessLogicBean.doBestSellerFiction}" />
+                        <p:menuitem value="HISTORY" action="#{businessLogicBean.doBestSellerHistory}" />
+                        <p:menuitem value="PSYCHOLOGY" action="#{businessLogicBean.doBestSellerPsychology}" />
+                        <p:menuitem value="SCIENCE" action="#{businessLogicBean.doBestSellerScience}" />
+                        <p:menuitem value="SUSPENSE" action="#{businessLogicBean.doBestSellerSuspense}" />
+
+                    </p:submenu>
+                    <p:submenu label="ENTERTAINMENT" >
+                        <p:menuitem value="ACTION" action="#{businessLogicBean.doEntertainmentAction}" />
+                        <p:menuitem value="ADVENTURE" action="#{businessLogicBean.doEntertainmentAdventure}" />
+                        <p:menuitem value="ANIMALS" action="#{businessLogicBean.doEntertainmentAnimals}" />
+                        <p:menuitem value="BIOGRAPHY" action="#{businessLogicBean.doEntertainmentBiography}" />
+                        <p:menuitem value="DRAMA" action="#{businessLogicBean.doEntertainmentDrama}" />
+                        <p:menuitem value="FANTASY" action="#{businessLogicBean.doEntertainmentFantasy}" />
+                        <p:menuitem value="SPORTS" action="#{businessLogicBean.doEntertainmentSports}" />
+
+                    </p:submenu>
+
+
+                    <p:submenu label="SEARCH">
+                        <p:menuitem value="Search User" action="searchUser.xhtml" />
+                        <p:menuitem value="Search Store" action="searchStore.xhtml" />
+                        <p:menuitem value="Search Book Name" action="searchBookName.xhtml" />
+                    </p:submenu>
+
+                    <f:facet name="options">
+                        <p:commandLink value="Login" action="index.xhtml" rendered="#{not loginBean.loggedin}"/>
+                        <p:commandLink value="Logout" action="#{businessLogicBean.logout}" rendered="#{loginBean.loggedin}" />
+                    </f:facet>
+
+                </p:menubar>
+
+            </h:form>
+            <ui:insert name="content">Content</ui:insert>
+            <p:messages id="messages" showSummary="false" showDetail="true" globalOnly="true" autoUpdate="true" closable="true" />
+        </div>
+
+        <div id="bottom">
+            <h:panelGroup>
+                <h:link value="Home" outcome="index.xhtml" style="margin: 20px; padding: 20px;" />
+                <h:link value="About Us" outcome="aboutUs.xhtml" style="margin: 20px; padding: 20px;" />
+                <h:link value="Contact Us" outcome="contactUs.xhtml" style="margin: 20px; padding: 20px;" />
+            </h:panelGroup>
+            <center>  <h4> &copy; 2014-2015 Bookstore, Patterson St, Memphis.  All Rights Reserved. </h4></center>
+        </div>
+
+    </h:body>
+
+</html>

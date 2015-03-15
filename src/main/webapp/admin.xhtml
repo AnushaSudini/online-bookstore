@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:head>
+            <title>ADMIN</title>
+        </h:head>
+        <h:body >
+            <h:outputStylesheet library="css" name="style.css" />
+            <p:tabView binding="#{adminBean.messagesTab}" dynamic="true">
+                <p:ajax event="tabChange" listener="#{adminBean.onTabChange}" />  
+                <p:tab title="Allocate Manager">
+                    <h:form>
+                        <h:panelGrid columns="3">
+                            User ID: <h:inputText autocomplete="off" value="#{adminBean.userID}" />
+                            <p:commandButton value="Search by UserID" action="#{adminBean.doLookupUserID}"
+                                             oncomplete="PF('dlg').show()" update="dl"/>
+
+                            Bookstore ID: <h:inputText autocomplete="off" value="#{adminBean.bookstoreID}" />
+                            <p:commandButton value="Search by Book store ID" action="#{adminBean.doLookupStore}"
+                                             oncomplete="PF('dlg1').show()" update="dl1"/>
+
+                            <p:commandButton value="Assign Manager" action="#{adminBean.assignMgr}" />
+                            <p:dialog id="dl" modal="true" header="Select a User" widgetVar="dlg" resizable="false"
+                                      closable="#{adminBean.userList.size() le 0}">  
+                                <p:dataTable var="userDto" value="#{adminBean.userList}" rendered="#{adminBean.userList.size() gt 0}">
+                                    <p:column headerText="User ID">  
+                                        <p:commandLink value="#{userDto.userID}" action="#{adminBean.doUserEdit(userDto.userID)}"/>
+                                    </p:column>  
+                                    <p:column headerText="User Name">  
+                                        <h:outputText value="#{userDto.userName}" />
+                                    </p:column>  
+                                    <p:column headerText="Address">  
+                                        <h:outputText value="#{userDto.address}" />
+                                    </p:column>  
+                                    <p:column headerText="Role">  
+                                        <h:outputText value="#{userDto.role}" />
+                                    </p:column>  
+                                </p:dataTable>
+                                
+                            </p:dialog>  
+                            <p:dialog id="dl1" modal="true" header="Select a Store" widgetVar="dlg1" resizable="false"
+                                      closable="#{adminBean.storeList.size() le 0}">  
+                                <p:dataTable var="storeDto" value="#{adminBean.storeList}" rendered="#{adminBean.storeList.size() gt 0}">
+                                    <p:column headerText="Bookstore ID">  
+                                        <p:commandLink value="#{storeDto.bookstoreID}" action="#{adminBean.doBranchEdit(storeDto.bookstoreID)}"/>
+                                    </p:column>  
+                                    <p:column headerText="Branch ID">  
+                                        <h:outputText value="#{storeDto.locationID}" />
+                                    </p:column>  
+                                    <p:column headerText="Address">  
+                                        <h:outputText value="#{storeDto.address}" />
+                                    </p:column>  
+                                    <p:column headerText="Email ID">  
+                                        <h:outputText value="#{storeDto.emailID}" />
+                                    </p:column>  
+                                </p:dataTable>
+                            </p:dialog>
+                            <p:message for="dl" showDetail="true"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Deallocate Manager">
+                    <h:form>
+                        <h:panelGrid columns="3">
+                            User ID: <h:inputText autocomplete="off" value="#{adminBean.userID}" />
+                            <p:commandButton value="Lookup User ID" action="#{adminBean.doLookupUserIDDealloc()}"
+                                             oncomplete="PF('dlg2').show()" update="dl2"/>
+                            Bookstore ID: <h:inputText autocomplete="off" value="#{adminBean.bookstoreID}" />
+                            <p:commandButton value="Lookup Bookstore ID" action="#{adminBean.doLookupStoreDealloc()}"
+                                             oncomplete="PF('dlg3').show()" update="dl3"/>
+                            <p:commandButton value="Deassign Manager" action="#{adminBean.deAssignMgr}" />
+
+                            <p:dialog id="dl2" modal="true" header="Select a User" widgetVar="dlg2" resizable="false"
+                                      closable="#{adminBean.userList.size() le 0}">
+                                <p:dataTable var="userDto" value="#{adminBean.userList}" rendered="#{adminBean.userList.size() gt 0}">
+                                    <p:column headerText="User ID">  
+                                        <p:commandLink value="#{userDto.userID}" action="#{adminBean.doUserEdit(userDto.userID)}"/>
+                                    </p:column>  
+
+                                    <p:column headerText="User Name">  
+                                        <h:outputText value="#{userDto.userName}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Address">  
+                                        <h:outputText value="#{userDto.address}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Role">  
+                                        <h:outputText value="#{userDto.role}" />
+                                    </p:column>  
+                                </p:dataTable>
+                            </p:dialog>
+
+                            <p:dialog id="dl3" modal="true" header="Select a Store" widgetVar="dlg3" resizable="false"
+                                      closable="#{adminBean.storeList.size() le 0}">
+                                <p:dataTable var="storeDto" value="#{adminBean.storeList}" rendered="#{adminBean.storeList.size() gt 0}">
+                                    <p:column headerText="Bookstore ID">  
+                                        <p:commandLink value="#{storeDto.bookstoreID}" action="#{adminBean.doBranchEdit(storeDto.bookstoreID)}"/>
+                                    </p:column>  
+                                    <p:column headerText="Branch ID">  
+                                        <h:outputText value="#{storeDto.locationID}" />
+                                    </p:column>  
+                                    <p:column headerText="Address">  
+                                        <h:outputText value="#{storeDto.address}" />
+                                    </p:column>  
+                                    <p:column headerText="Email ID">  
+                                        <h:outputText value="#{storeDto.emailID}" />
+                                    </p:column>  
+                                </p:dataTable>
+                            </p:dialog>
+                            <p:message for="dl2" showDetail="true"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+                <p:tab title="View Users" >
+                    <h:form>
+                        <p:dataTable var="userDto" value="#{adminBean.userList}" rendered="#{adminBean.userList.size() gt 0}">
+                            <p:column headerText="User ID">  
+                                <p:commandLink value="#{userDto.userID}" action="#{adminBean.doUserEdit(userDto.userID)}"/>
+                            </p:column>  
+
+                            <p:column headerText="User Name">  
+                                <h:outputText value="#{userDto.userName}" />
+                            </p:column>  
+
+                            <p:column headerText="Address">  
+                                <h:outputText value="#{userDto.address}" />
+                            </p:column>  
+
+                            <p:column headerText="Role">  
+                                <h:outputText value="#{userDto.role}" />
+                            </p:column>  
+
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Add User">
+                    <h:form>
+                       <p:panel header="New User Registration" >
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Enter Username you want to use: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userDto.userName}" 
+                                     required="true" requiredMessage="UserName is Required"/>
+                        <h:outputText value="Enter First Name: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userDto.firstName}" />
+                        <h:outputText value="Enter Last Name: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userDto.lastName}" />
+                        <h:outputText value="Enter Gender: " />
+                        <h:selectOneMenu value="#{registerBean.userDto.gender}">
+                            <f:selectItem itemValue="Male" itemLabel="Male" />
+                            <f:selectItem itemValue="Female" itemLabel="Female" />
+                            <f:selectItem itemValue="Other" itemLabel="Other" />
+                        </h:selectOneMenu>
+                        <h:outputText value="Enter Address: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userDto.address}" />
+                        <h:outputText value="Enter City: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userDto.city}" />
+                        <h:outputText value="Enter State ID: " />
+                        <h:selectOneMenu value="#{registerBean.userDto.stateID}">
+                            <f:selectItem itemValue="AK" itemLabel="ALASKA" />
+                            <f:selectItem itemValue="AL" itemLabel="ALABAMA" />
+                            <f:selectItem itemValue="AR" itemLabel="ARKANSAS" />
+                            <f:selectItem itemValue="AZ" itemLabel="ARIZONA" />
+                            <f:selectItem itemValue="CA" itemLabel="CALIFORNIA" />
+                            <f:selectItem itemValue="CO" itemLabel="COLORADO" />
+                            <f:selectItem itemValue="CT" itemLabel="CONNECTICUT" />
+                            <f:selectItem itemValue="DE" itemLabel="DELAWARE" />
+                            <f:selectItem itemValue="FL" itemLabel="FLORIDA" />
+                            <f:selectItem itemValue="GA" itemLabel="GEORGIA" />
+                            <f:selectItem itemValue="HI" itemLabel="HAWAII" />
+                            <f:selectItem itemValue="IA" itemLabel="IOWA" />
+                            <f:selectItem itemValue="ID" itemLabel="IDAHO" />
+                            <f:selectItem itemValue="IL" itemLabel="ILLINOIS" />
+                            <f:selectItem itemValue="IN" itemLabel="INDIANA" />
+                            <f:selectItem itemValue="KS" itemLabel="KANSAS" />
+                            <f:selectItem itemValue="KY" itemLabel="KENTUCKY" />
+                            <f:selectItem itemValue="LA" itemLabel="LOUISIANA" />
+                            <f:selectItem itemValue="MA" itemLabel="MASSACHUSETTS" />
+                            <f:selectItem itemValue="MD" itemLabel="MARYLAND" />
+                            <f:selectItem itemValue="ME" itemLabel="MAINE" />
+                            <f:selectItem itemValue="MI" itemLabel="MICHIGAN" />
+                            <f:selectItem itemValue="MN" itemLabel="MINNESOTA" />
+                            <f:selectItem itemValue="MO" itemLabel="MISSOURI" />
+                            <f:selectItem itemValue="MS" itemLabel="MISSISSIPPI" />
+                            <f:selectItem itemValue="MT" itemLabel="MONTANA" />
+                            <f:selectItem itemValue="NC" itemLabel="NORTH CAROLINA" />
+                            <f:selectItem itemValue="ND" itemLabel="NORTH DAKOTA" />
+                            <f:selectItem itemValue="NE" itemLabel="NEBRASKA" />
+                            <f:selectItem itemValue="NH" itemLabel="NEW HAMPSHIRE" />
+                            <f:selectItem itemValue="NJ" itemLabel="NEW JERSEY" />
+                            <f:selectItem itemValue="NM" itemLabel="NEW MEXICO" />
+                            <f:selectItem itemValue="NV" itemLabel="NEVADA" />
+                            <f:selectItem itemValue="NY" itemLabel="NEW YORK" />
+                            <f:selectItem itemValue="OH" itemLabel="OHIO" />
+                            <f:selectItem itemValue="OK" itemLabel="OKLAHOMA" />
+                            <f:selectItem itemValue="OR" itemLabel="OREGON" />
+                            <f:selectItem itemValue="PA" itemLabel="PENNSYLVANIA" />
+                            <f:selectItem itemValue="RI" itemLabel="RHODE ISLAND" />
+                            <f:selectItem itemValue="SC" itemLabel="SOUTH CAROLINA" />
+                            <f:selectItem itemValue="SD" itemLabel="SOUTH DAKOTA" />
+                            <f:selectItem itemValue="TN" itemLabel="TENNESSEE" />
+                            <f:selectItem itemValue="TX" itemLabel="TEXAS" />
+                            <f:selectItem itemValue="UT" itemLabel="UTAH" />
+                            <f:selectItem itemValue="VA" itemLabel="VIRGINIA" />
+                            <f:selectItem itemValue="VT" itemLabel="VERMONT" />
+                            <f:selectItem itemValue="WA" itemLabel="WASHINGTON" />
+                            <f:selectItem itemValue="WI" itemLabel="WISCONSIN" />
+                            <f:selectItem itemValue="WV" itemLabel="WEST VIRGINIA" />
+                            <f:selectItem itemValue="WY" itemLabel="WYOMING" />
+
+                        </h:selectOneMenu>
+                        <h:outputText value="Enter Phone Number: " />
+                        <h:inputText value="#{registerBean.userDto.phoneNumber}" />
+                        <h:outputText value="Enter Email ID: " />
+                        <h:inputText autocomplete="off" value="#{registerBean.userDto.emailID}" />
+
+                        <h:outputText value="Enter password: " />
+                        <h:inputSecret  value="#{registerBean.userDto.password}" />
+
+                        <h:outputText value="Confirm password: " />
+                        <h:inputSecret value="#{registerBean.confirmPassword}" />
+
+                        <h:outputText value="Role: " />
+                        <h:selectOneMenu value="#{registerBean.userDto.role}">
+                            <f:selectItem itemValue="customer" itemLabel="Customer" />
+                            <f:selectItem itemValue="manager" itemLabel="Manager" />
+                            <f:selectItem itemValue="admin" itemLabel="Admin" />
+                        </h:selectOneMenu>
+                        <h:commandButton value="Submit" action="#{registerBean.newUser()}" />
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>
+                    </h:form>
+                </p:tab>
+            </p:tabView >
+            
+        </h:body>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <h:head>
+            <title>SEARCH BRANCH</title>
+        </h:head>
+        <h:body >
+            <h:outputStylesheet library="css" name="style.css" />
+            <h:form>
+                <h:inputText autocomplete="off" value="#{businessLogicBean.storeDto.locationID}"> Enter Branch ID </h:inputText>
+                <p:commandButton value="Search" type="submit" action="#{businessLogicBean.doSearchStore()}" />
+                <p:dataTable var="storeDto" value="#{businessLogicBean.storeList}">
+                    <p:column headerText="Bookstore ID">
+                        <h:outputText value="#{storeDto.bookstoreID}" />
+                    </p:column>
+                    <p:column headerText="Address">
+                        <h:outputText value="#{storeDto.address}" />
+                    </p:column>
+                    <p:column headerText="Phone Number">
+                        <h:outputText value="#{storeDto.phoneNumber}" />
+                    </p:column>
+                    <p:column headerText="Email ID">
+                        <h:outputText value="#{storeDto.emailID}" />
+                    </p:column>
+                    <p:column headerText="User ID">
+                        <h:outputText value="#{storeDto.userID}" />
+                    </p:column>
+                    <p:column headerText="Branch Number">
+                        <h:outputText value="#{storeDto.branchID}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
